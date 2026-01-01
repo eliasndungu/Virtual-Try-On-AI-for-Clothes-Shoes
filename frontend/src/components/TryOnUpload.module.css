@@ -1,0 +1,102 @@
+.container {
+  margin-bottom: 2rem;
+}
+
+.heading {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.uploadGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.uploadBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.fileInput {
+  padding: 0.5rem;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.fileInput:hover {
+  border-color: #adb5bd;
+}
+
+.fileName {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.poseSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.poseOptions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.poseOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.poseOption input[type="radio"] {
+  cursor: pointer;
+}
+
+.error {
+  padding: 0.75rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.submitButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.submitButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}

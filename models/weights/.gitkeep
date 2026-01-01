@@ -1,0 +1,5 @@
+# Keep model weights here
+*.pth
+*.ckpt
+*.safetensors
+!.gitkeep
