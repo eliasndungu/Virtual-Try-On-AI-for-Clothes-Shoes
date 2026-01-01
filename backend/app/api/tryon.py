@@ -5,7 +5,6 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends, B
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import List
-import shutil
 
 from ..models import (
     TryOnRequestSchema,
@@ -30,35 +29,41 @@ async def process_tryon_background(
     person_image_path: str,
     garment_image_path: str,
     pose: str,
-    output_path: str,
-    db_session: AsyncSession
+    output_path: str
 ):
     """Background task to process virtual try-on."""
-    # Update status to processing
-    result = await db_session.execute(
-        select(TryOnRequestDB).where(TryOnRequestDB.id == request_id)
-    )
-    request_obj = result.scalar_one_or_none()
+    from ..services.database_service import db_service
     
-    if request_obj:
-        request_obj.status = "processing"
-        await db_session.commit()
-    
-    # Process the try-on
-    success, error_msg, proc_time = tryon_service.process_tryon(
-        person_image_path,
-        garment_image_path,
-        pose,
-        output_path
-    )
-    
-    # Update request with results
-    if request_obj:
-        request_obj.status = "completed" if success else "failed"
-        request_obj.result_image_path = output_path if success else None
-        request_obj.error_message = error_msg
-        request_obj.processing_time = proc_time
-        await db_session.commit()
+    # Create a new database session for the background task
+    async for session in db_service.get_session():
+        try:
+            # Update status to processing
+            result = await session.execute(
+                select(TryOnRequestDB).where(TryOnRequestDB.id == request_id)
+            )
+            request_obj = result.scalar_one_or_none()
+            
+            if request_obj:
+                request_obj.status = "processing"
+                await session.commit()
+            
+            # Process the try-on
+            success, error_msg, proc_time = tryon_service.process_tryon(
+                person_image_path,
+                garment_image_path,
+                pose,
+                output_path
+            )
+            
+            # Update request with results
+            if request_obj:
+                request_obj.status = "completed" if success else "failed"
+                request_obj.result_image_path = output_path if success else None
+                request_obj.error_message = error_msg
+                request_obj.processing_time = proc_time
+                await session.commit()
+        finally:
+            await session.close()
 
 
 @router.post("/", response_model=TryOnResponse)
@@ -126,8 +131,7 @@ async def create_tryon_request(
         person_path,
         garment_path,
         pose.value,
-        result_path,
-        db
+        result_path
     )
     
     return TryOnResponse(

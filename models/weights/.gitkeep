@@ -1,5 +1,2 @@
-# Keep model weights here
-*.pth
-*.ckpt
-*.safetensors
-!.gitkeep
+# This directory is for storing AI model weights
+# Model weight files are gitignored but this placeholder ensures the directory exists
