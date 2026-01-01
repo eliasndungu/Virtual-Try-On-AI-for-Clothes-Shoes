@@ -1,0 +1,109 @@
+.container {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e9ecef;
+}
+
+.heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.statusBadge[data-status="pending"] {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.statusBadge[data-status="processing"] {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.statusBadge[data-status="completed"] {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.statusBadge[data-status="failed"] {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.processing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.resultImage {
+  text-align: center;
+}
+
+.resultImage img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.processingTime {
+  margin-top: 1rem;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.error {
+  padding: 1rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.errorMessage {
+  padding: 1.5rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.errorMessage p {
+  margin: 0.5rem 0;
+  color: #721c24;
+}
+
+.errorDetail {
+  font-size: 0.875rem;
+  color: #842029;
+}
